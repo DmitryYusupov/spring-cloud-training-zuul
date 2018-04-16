@@ -1,4 +1,4 @@
-package ru.yusdm.zuultraining.common.dto;
+package ru.yusdm.cloudtraining.common.dto;
 
 import java.io.Serializable;
 import java.util.List;
