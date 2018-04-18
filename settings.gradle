@@ -2,4 +2,5 @@ rootProject.name = 'spring-cloud-training-zuul'
 include 'common'
 include 'country-service'
 include 'city-service'
+include 'street-service'
 

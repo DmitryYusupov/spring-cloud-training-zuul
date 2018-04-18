@@ -1,15 +1,27 @@
 group 'ru.yusdm.cloudtraining'
 version '1.0'
 
-
 apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId 'zuul-common'
+
+            from components.java
+        }
+    }
+}
 dependencies {
-//    compileOnly('org.projectlombok:lombok')
+    compileOnly('org.projectlombok:lombok:1.16.20')
 }
