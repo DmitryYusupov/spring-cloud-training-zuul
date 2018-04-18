@@ -3,4 +3,5 @@ include 'common'
 include 'country-service'
 include 'city-service'
 include 'street-service'
+include 'ui-service'
 
