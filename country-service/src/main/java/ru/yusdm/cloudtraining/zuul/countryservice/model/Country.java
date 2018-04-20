@@ -1,5 +1,6 @@
 package ru.yusdm.cloudtraining.zuul.countryservice.model;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

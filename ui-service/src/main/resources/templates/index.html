@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="content(page, fragment)">
+<head>
+    <title>Monolit in action</title>
+    <div th:replace="fragments/header :: header-includes"/>
+</head>
+<body>
+<header th:replace="fragments/header :: header"/>
+<div th:replace="fragments/left :: left-menu"/>
+<main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+    <div th:include="${page} :: ${fragment}"></div>
+</main>
+<div th:replace="fragments/footer :: footer-includes"/>
+</body>
+</html>

@@ -1,0 +1,7 @@
+spring:
+  thymeleaf:
+    cache: false
+  application:
+    name: ui-service
+server:
+  port: 8080
