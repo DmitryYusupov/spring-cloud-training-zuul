@@ -22,6 +22,7 @@ public class DtoModelConverter {
         CityDTO cityDTO = new CityDTO();
         cityDTO.setId(city.getId());
         cityDTO.setName(city.getName());
+        cityDTO.setPopulation(city.getPopulation());
         cityDTO.setCountryId(city.getCountryId());
         return cityDTO;
     }

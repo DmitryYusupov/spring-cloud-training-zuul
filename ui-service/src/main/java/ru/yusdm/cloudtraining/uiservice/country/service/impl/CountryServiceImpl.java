@@ -3,15 +3,14 @@ package ru.yusdm.cloudtraining.uiservice.country.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.yusdm.cloudtraining.uiservice.country.CountryFeignClient;
+import ru.yusdm.cloudtraining.uiservice.country.feign.CountryFeignClient;
 import ru.yusdm.cloudtraining.uiservice.country.service.CountryService;
-import ru.yusdm.cloudtraining.uiservice.utils.ResponseEntityUtils;
 import ru.yusdm.cloudtraining.zuul.common.dto.CountryDTO;
 
 import java.util.List;
 
-import static ru.yusdm.cloudtraining.uiservice.utils.ResponseEntityUtils.extractFromResponseEntity;
-import static ru.yusdm.cloudtraining.uiservice.utils.ResponseEntityUtils.threwErrorIfResponseStatusIsNotOK;
+import static ru.yusdm.cloudtraining.zuul.common.distributed.ResponseEntityUtils.extractEntityIfOkOrThrewError;
+import static ru.yusdm.cloudtraining.zuul.common.distributed.ResponseEntityUtils.threwErrorIfResponseStatusIsNotOK;
 
 
 @Service
@@ -26,7 +25,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<CountryDTO> findAll() {
-        return extractFromResponseEntity(countryFeignClient.findAll());
+        return extractEntityIfOkOrThrewError(countryFeignClient.findAll());
     }
 
     @Override
@@ -36,12 +35,12 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public CountryDTO update(CountryDTO country) {
+    public CountryDTO save(CountryDTO countryDTO) {
         return null;
     }
 
     @Override
-    public CountryDTO save(CountryDTO countryDTO) {
-        return null;
+    public CountryDTO getById(long countryId) {
+        return extractEntityIfOkOrThrewError(countryFeignClient.getById(countryId));
     }
 }

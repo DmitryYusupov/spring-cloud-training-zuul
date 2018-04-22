@@ -3,10 +3,12 @@ package ru.yusdm.cloudtraining.zuul.cityservice;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import ru.yusdm.cloudtraining.zuul.cityservice.model.City;
-import ru.yusdm.cloudtraining.zuul.cityservice.service.CityService;
+import ru.yusdm.cloudtraining.zuul.cityservice.service.CityLocalService;
 
+@EnableFeignClients
 @SpringBootApplication
 public class CityServiceApplication {
 
@@ -15,7 +17,7 @@ public class CityServiceApplication {
     }
 
     @Bean
-    public CommandLineRunner loadData(CityService cityService) {
+    public CommandLineRunner loadData(CityLocalService cityService) {
         return args -> {
             //russia
             cityService.save(City.builder().countryId(1L).name("Moscow").population(1500).build());

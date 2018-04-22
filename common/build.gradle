@@ -23,5 +23,6 @@ publishing {
     }
 }
 dependencies {
+    compileOnly('org.springframework:spring-web:5.0.5.RELEASE')
     compileOnly('org.projectlombok:lombok:1.16.20')
 }

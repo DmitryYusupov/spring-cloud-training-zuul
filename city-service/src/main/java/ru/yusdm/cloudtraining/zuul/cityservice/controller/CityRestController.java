@@ -1,12 +1,12 @@
 package ru.yusdm.cloudtraining.zuul.cityservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.yusdm.cloudtraining.zuul.cityservice.model.City;
-import ru.yusdm.cloudtraining.zuul.cityservice.service.CityService;
+import ru.yusdm.cloudtraining.zuul.cityservice.service.CityDistributedService;
+import ru.yusdm.cloudtraining.zuul.cityservice.service.CityLocalService;
 import ru.yusdm.cloudtraining.zuul.cityservice.utils.DtoModelConverter;
 import ru.yusdm.cloudtraining.zuul.common.dto.CityDTO;
 
@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.ResponseEntity.ok;
 import static ru.yusdm.cloudtraining.zuul.cityservice.utils.DtoModelConverter.dtoToModel;
 import static ru.yusdm.cloudtraining.zuul.cityservice.utils.DtoModelConverter.modelToDTO;
 
@@ -21,42 +23,51 @@ import static ru.yusdm.cloudtraining.zuul.cityservice.utils.DtoModelConverter.mo
 @RequestMapping("/cities")
 public class CityRestController {
 
-    private CityService cityService;
+    private CityLocalService cityService;
+
+    private CityDistributedService cityDistributedService;
 
     @Autowired
-    public CityRestController(CityService cityService) {
+    public CityRestController(CityLocalService cityService,
+                              CityDistributedService cityDistributedService) {
         this.cityService = cityService;
+        this.cityDistributedService = cityDistributedService;
     }
 
-    @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CityDTO> update(@RequestBody CityDTO cityDTO) {
         City city = cityService.save(dtoToModel(cityDTO));
-        return new ResponseEntity<>(modelToDTO(city), HttpStatus.OK);
+        return new ResponseEntity<>(modelToDTO(city), OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteById(@PathVariable Long id) {
+    public ResponseEntity deleteById(@PathVariable long id) {
         cityService.deleteById(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(OK);
     }
 
-    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CityDTO> save(@RequestBody CityDTO cityDTO) {
         City city = cityService.save(dtoToModel(cityDTO));
-        return new ResponseEntity<>(modelToDTO(city), HttpStatus.OK);
+        return new ResponseEntity<>(modelToDTO(city), OK);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<CityDTO> getById(@PathVariable Long id) {
-        City city = cityService.findById(id).orElse(null);
-        return Optional.ofNullable(city).map(c -> ResponseEntity.ok().body(modelToDTO(c))).
+    @GetMapping("/{id}")
+    public ResponseEntity<CityDTO> getById(@PathVariable long id) {
+        Optional<CityDTO> country = cityDistributedService.findById(id);
+        return country.map(c -> ok().body(c)).
                 orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<CityDTO>> findAll() {
-        List<CityDTO> cities = cityService.findAll().stream().map(DtoModelConverter::modelToDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(cities, HttpStatus.OK);
+    @GetMapping("/query")
+    public ResponseEntity<List<CityDTO>> find(@RequestParam("countryId") Long countryId) {
+        if (countryId != null) {
+            List<CityDTO> cities = cityService.findAllByCountryId(countryId)
+                    .stream().map(DtoModelConverter::modelToDTO).collect(Collectors.toList());
+            return new ResponseEntity<>(cities, OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

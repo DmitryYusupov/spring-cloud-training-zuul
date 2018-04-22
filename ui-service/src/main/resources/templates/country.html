@@ -1,0 +1,59 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="countryFragment">
+    <div class="card card-primary">
+        <div class="card-header text-white bg-info"><h4>Country info</h4></div>
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <label for="staticName" class="col-sm-2 col-form-label"><b>Name:</b></label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="staticName"
+                               th:attr="value=${country.name}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="staticDescription" class="col-sm-2 col-form-label"><b>Description:</b></label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="staticDescription"
+                               th:attr="value=${country.description}">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card card-primary">
+        <div class="card-header text-white bg-info">Cities info</div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr th:each="city : ${country.cities}">
+                    <td>
+                        <div class="card">
+                            <div class="card-header"><h4 th:text="${city.name}"/></div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group row">
+                                        <label for="staticPopulation" class="col-sm-2 col-form-label"><b>Population:</b></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" readonly class="form-control-plaintext" id="staticPopulation"
+                                                   th:attr="value=${city.population}">
+                                        </div>
+                                    </div>
+                                </form>
+                                <div><b>Streets:</b></div>
+                                <ul th:each="street : ${city.streets}">
+                                    <li>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+</html>

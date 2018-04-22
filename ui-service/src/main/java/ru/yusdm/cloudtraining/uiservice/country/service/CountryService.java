@@ -10,4 +10,6 @@ public interface CountryService {
     void deleteById(long id);
 
     CountryDTO save(CountryDTO countryDTO);
+
+    CountryDTO getById(long countryId);
 }

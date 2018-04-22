@@ -1,4 +1,4 @@
-package ru.yusdm.cloudtraining.uiservice.utils;
+package ru.yusdm.cloudtraining.zuul.common.distributed;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ public class ResponseEntityUtils {
 
     }
 
-    public static <T> T extractFromResponseEntity(ResponseEntity<T> responseEntity) {
+    public static <T> T extractEntityIfOkOrThrewError(ResponseEntity<T> responseEntity) {
         HttpStatus httpStatus = responseEntity.getStatusCode();
         threwErrorIfResponseStatusIsNotOK(httpStatus);
         return responseEntity.getBody();

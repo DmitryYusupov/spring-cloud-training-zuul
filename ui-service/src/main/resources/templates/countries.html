@@ -1,17 +1,13 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="countriesPage">
-    <div th:if="${getAllCitiesError}">
-        <div th:text="${getAllCitiesError}" class="alert alert-danger" role="alert"/>
-    </div>
-    <table th:unless="${getAllCitiesError}" class="table table-striped">
+<div th:fragment="countriesFragment">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>№</th>
             <th>Name</th>
             <th>Description</th>
             <th>Full Info</th>
-            <th>Add</th>
             <th>Delete</th>
         </tr>
         </thead>
@@ -20,8 +16,7 @@
             <td th:text="${iter.index + 1}">Index</td>
             <td th:text="${country.name}">Name</td>
             <td th:text="${country.description}">Country</td>
-            <td><a th:href="@{'/employees?cityId='}">Full Info</a></td>
-            <td><a th:href="@{'/countries'}">Add</a></td>
+            <td><a th:href="@{'/countries/'+ ${country.id}}">Full Info</a></td>
             <td><a th:href="@{'countries/delete/' + ${country.id}}">Delete</a></td>
         </tr>
         </tbody>

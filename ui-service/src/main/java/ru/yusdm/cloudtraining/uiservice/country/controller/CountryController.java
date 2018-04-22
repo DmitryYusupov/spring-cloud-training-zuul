@@ -1,4 +1,4 @@
-package ru.yusdm.cloudtraining.uiservice.country;
+package ru.yusdm.cloudtraining.uiservice.country.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class CountryController {
     @GetMapping
     public String getCountries(Model model) {
         model.addAttribute("countries", countryService.findAll());
-        return "index :: content(page='countries', fragment='countriesPage')";
+        return "index :: content(page='countries', fragment='countriesFragment')";
     }
 
     @PostMapping
@@ -37,5 +37,10 @@ public class CountryController {
         return "redirect:/countries";
     }
 
+    @GetMapping("/{id}")
+    public String getCountryInfo(@PathVariable Long id, Model model) {
+        model.addAttribute("country", countryService.getById(id));
+        return "index :: content(page='country', fragment='countryFragment')";
+    }
 
 }

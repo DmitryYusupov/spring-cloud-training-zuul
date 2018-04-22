@@ -5,19 +5,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yusdm.cloudtraining.zuul.streetservice.model.Street;
 import ru.yusdm.cloudtraining.zuul.streetservice.repo.StreetRepo;
-import ru.yusdm.cloudtraining.zuul.streetservice.service.StreetService;
+import ru.yusdm.cloudtraining.zuul.streetservice.service.StreetLocalService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class StreetServiceImpl implements StreetService {
+public class StreetLocalServiceImpl implements StreetLocalService {
 
     private StreetRepo streetRepo;
 
     @Autowired
-    public StreetServiceImpl(StreetRepo streetRepo) {
+    public StreetLocalServiceImpl(StreetRepo streetRepo) {
         this.streetRepo = streetRepo;
     }
 
@@ -34,8 +34,8 @@ public class StreetServiceImpl implements StreetService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Street> findAll() {
-        return streetRepo.findAll();
+    public List<Street> findAllByCityId(long cityId) {
+        return streetRepo.findAllByCityId(cityId);
     }
 
     @Override

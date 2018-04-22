@@ -3,21 +3,22 @@ package ru.yusdm.cloudtraining.zuul.countryservice.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.yusdm.cloudtraining.zuul.countryservice.feign.CityFeignClient;
 import ru.yusdm.cloudtraining.zuul.countryservice.model.Country;
 import ru.yusdm.cloudtraining.zuul.countryservice.repo.CountryRepo;
-import ru.yusdm.cloudtraining.zuul.countryservice.service.CountryService;
+import ru.yusdm.cloudtraining.zuul.countryservice.service.CountryLocalService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class CountryServiceImpl implements CountryService {
+public class CountryLocalServiceImpl implements CountryLocalService {
 
     private CountryRepo countryRepo;
 
     @Autowired
-    public CountryServiceImpl(CountryRepo countryRepo) {
+    public CountryLocalServiceImpl(CountryRepo countryRepo) {
         this.countryRepo = countryRepo;
     }
 
@@ -40,6 +41,8 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public void deleteById(Long id) {
-        countryRepo.deleteById(id);
+        if (id != null) {
+            countryRepo.deleteById(id);
+        }
     }
 }

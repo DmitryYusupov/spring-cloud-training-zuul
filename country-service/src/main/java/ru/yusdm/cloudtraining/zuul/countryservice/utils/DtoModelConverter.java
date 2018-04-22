@@ -7,7 +7,6 @@ import ru.yusdm.cloudtraining.zuul.countryservice.model.Country;
 public class DtoModelConverter {
 
     private DtoModelConverter() {
-
     }
 
     public static Country dtoToModel(CountryDTO countryDTO) {

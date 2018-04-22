@@ -5,19 +5,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yusdm.cloudtraining.zuul.cityservice.model.City;
 import ru.yusdm.cloudtraining.zuul.cityservice.repo.CityRepo;
-import ru.yusdm.cloudtraining.zuul.cityservice.service.CityService;
+import ru.yusdm.cloudtraining.zuul.cityservice.service.CityLocalService;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class CityServiceImpl implements CityService {
+public class CityLocalServiceImpl implements CityLocalService {
 
     private CityRepo cityRepo;
 
     @Autowired
-    public CityServiceImpl(CityRepo cityRepo) {
+    public CityLocalServiceImpl(CityRepo cityRepo) {
         this.cityRepo = cityRepo;
     }
 
@@ -34,8 +34,8 @@ public class CityServiceImpl implements CityService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<City> findAll() {
-        return cityRepo.findAll();
+    public List<City> findAllByCountryId(long countryId) {
+        return cityRepo.findAllByCountryId(countryId);
     }
 
     @Override
