@@ -43,8 +43,7 @@
                                 </form>
                                 <div><b>Streets:</b></div>
                                 <ul th:each="street : ${city.streets}">
-                                    <li>
-                                    </li>
+                                    <li th:text="${street.name}"></li>
                                 </ul>
                             </div>
                         </div>

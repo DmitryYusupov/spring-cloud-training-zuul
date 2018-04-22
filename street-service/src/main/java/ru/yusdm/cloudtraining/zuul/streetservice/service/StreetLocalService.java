@@ -12,5 +12,7 @@ public interface StreetLocalService {
 
     List<Street> findAllByCityId(long cityId);
 
-    void deleteById(Long id);
+    void deleteById(long id);
+
+    void deleteByCityId(long cityId);
 }

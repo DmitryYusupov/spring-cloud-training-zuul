@@ -12,6 +12,8 @@ public interface CityLocalService {
 
     List<City> findAllByCountryId(long countryId);
 
-    void deleteById(Long id);
+    void deleteById(long id);
+
+    void deleteByCountryId(long countryId);
 
 }

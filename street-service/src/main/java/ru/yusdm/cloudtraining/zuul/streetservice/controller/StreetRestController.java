@@ -54,7 +54,7 @@ public class StreetRestController {
     }
 
     @GetMapping("/query")
-    public ResponseEntity<List<StreetDTO>> find(@RequestParam("cityId") Long cityId) {
+    public ResponseEntity<List<StreetDTO>> find(@RequestParam("city_id") Long cityId) {
         if (cityId != null) {
             List<StreetDTO> streets = streetService.findAllByCityId(cityId)
                     .stream().map(DtoModelConverter::modelToDTO).collect(Collectors.toList());
@@ -63,4 +63,12 @@ public class StreetRestController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/deletebycityid")
+    public ResponseEntity deleteByCountryId(@RequestParam("city_id") long cityId) {
+        streetService.deleteByCityId(cityId);
+        return new ResponseEntity(OK);
+    }
+
+
 }

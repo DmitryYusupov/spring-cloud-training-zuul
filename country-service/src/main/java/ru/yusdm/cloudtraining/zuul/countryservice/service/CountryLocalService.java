@@ -13,5 +13,5 @@ public interface CountryLocalService {
 
     List<Country> findAll();
 
-    void deleteById(Long id);
+    void deleteById(long id);
 }

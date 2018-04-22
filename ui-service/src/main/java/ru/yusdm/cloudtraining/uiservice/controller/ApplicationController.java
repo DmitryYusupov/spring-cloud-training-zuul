@@ -1,22 +1,22 @@
-package ru.yusdm.cloudtraining.uiservice.country.controller;
+package ru.yusdm.cloudtraining.uiservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.yusdm.cloudtraining.uiservice.country.service.CountryService;
+import ru.yusdm.cloudtraining.uiservice.service.ApplicationService;
 import ru.yusdm.cloudtraining.zuul.common.dto.CountryDTO;
 
-import java.util.ArrayList;
-
 @Controller
-@RequestMapping(value = "countries")
-public class CountryController {
+@RequestMapping(value = "/countries")
+public class ApplicationController {
 
-    private CountryService countryService;
+    private ApplicationService countryService;
 
     @Autowired
-    public CountryController(CountryService countryService) {
+    public ApplicationController(ApplicationService countryService) {
         this.countryService = countryService;
     }
 
@@ -24,11 +24,6 @@ public class CountryController {
     public String getCountries(Model model) {
         model.addAttribute("countries", countryService.findAll());
         return "index :: content(page='countries', fragment='countriesFragment')";
-    }
-
-    @PostMapping
-    public String addCountry(Model model) {
-        return "";
     }
 
     @GetMapping("/delete/{id}")
@@ -39,8 +34,12 @@ public class CountryController {
 
     @GetMapping("/{id}")
     public String getCountryInfo(@PathVariable Long id, Model model) {
-        model.addAttribute("country", countryService.getById(id));
+        ResponseEntity<CountryDTO> response = countryService.getById(id);
+        if (HttpStatus.NOT_FOUND.equals(response.getStatusCode())) {
+            model.addAttribute("error", "Not found country!");
+        } else {
+            model.addAttribute("country", response.getBody());
+        }
         return "index :: content(page='country', fragment='countryFragment')";
     }
-
 }

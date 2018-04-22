@@ -46,6 +46,11 @@ public class CityRestController {
         return new ResponseEntity(OK);
     }
 
+    @GetMapping("/deletebycountryid")
+    public ResponseEntity deleteByCountryId(@RequestParam("country_id") long countryId) {
+        return cityDistributedService.deleteByCountryId(countryId);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CityDTO> save(@RequestBody CityDTO cityDTO) {
         City city = cityService.save(dtoToModel(cityDTO));
@@ -60,10 +65,9 @@ public class CityRestController {
     }
 
     @GetMapping("/query")
-    public ResponseEntity<List<CityDTO>> find(@RequestParam("countryId") Long countryId) {
+    public ResponseEntity<List<CityDTO>> find(@RequestParam("country_id") Long countryId) {
         if (countryId != null) {
-            List<CityDTO> cities = cityService.findAllByCountryId(countryId)
-                    .stream().map(DtoModelConverter::modelToDTO).collect(Collectors.toList());
+            List<CityDTO> cities = cityDistributedService.findAllByCountryId(countryId);
             return new ResponseEntity<>(cities, OK);
         } else {
             return ResponseEntity.notFound().build();

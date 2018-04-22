@@ -39,7 +39,12 @@ public class StreetLocalServiceImpl implements StreetLocalService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         streetRepo.deleteById(id);
+    }
+
+    @Override
+    public void deleteByCityId(long cityId) {
+        streetRepo.deleteByCityId(cityId);
     }
 }

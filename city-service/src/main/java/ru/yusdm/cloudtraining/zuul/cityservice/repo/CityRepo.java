@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface CityRepo extends JpaRepository<City, Long> {
-    List<City> findAllByCountryId(Long countryId);
-
+    List<City> findAllByCountryId(long countryId);
+    void deleteByCountryId(long countryId);
 }

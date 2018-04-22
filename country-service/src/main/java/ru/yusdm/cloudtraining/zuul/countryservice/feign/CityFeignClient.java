@@ -17,15 +17,18 @@ public interface CityFeignClient {
     ResponseEntity<CityDTO> update(@RequestBody CityDTO cityDTO);
 
     @DeleteMapping("/{id}")
-    ResponseEntity deleteById(@PathVariable("id") Long id);
+    ResponseEntity deleteById(@PathVariable("id") long id);
+
+    @GetMapping("/deletebycountryid")
+    ResponseEntity deleteByCountryId(@RequestParam("country_id")long countryId);
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<CityDTO> save(@RequestBody CityDTO cityDTO);
 
     @GetMapping("{id}")
-    ResponseEntity<CityDTO> getById(@PathVariable("id") Long id);
+    ResponseEntity<CityDTO> getById(@PathVariable("id") long id);
 
     @GetMapping("/query")
-    ResponseEntity<List<CityDTO>> findByCountryId(@RequestParam("countryId") Long countryId);
+    ResponseEntity<List<CityDTO>> findByCountryId(@RequestParam("country_id") long countryId);
 
 }

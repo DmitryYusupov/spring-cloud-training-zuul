@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface StreetRepo extends JpaRepository<Street, Long> {
     List<Street> findAllByCityId(long cityId);
+    void deleteByCityId(long cityId);
 }

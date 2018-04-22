@@ -43,8 +43,7 @@ public class CountryRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteById(@PathVariable long id) {
-        countryService.deleteById(id);
-        return new ResponseEntity(OK);
+        return countryDistributedService.deleteById(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

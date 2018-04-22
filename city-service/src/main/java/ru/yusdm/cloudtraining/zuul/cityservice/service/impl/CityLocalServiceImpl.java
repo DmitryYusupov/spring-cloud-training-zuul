@@ -39,7 +39,12 @@ public class CityLocalServiceImpl implements CityLocalService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         cityRepo.deleteById(id);
+    }
+
+    @Override
+    public void deleteByCountryId(long countryId) {
+        cityRepo.deleteByCountryId(countryId);
     }
 }

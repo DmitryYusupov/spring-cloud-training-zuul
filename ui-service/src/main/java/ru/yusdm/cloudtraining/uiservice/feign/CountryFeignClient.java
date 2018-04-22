@@ -1,4 +1,4 @@
-package ru.yusdm.cloudtraining.uiservice.country.feign;
+package ru.yusdm.cloudtraining.uiservice.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -17,13 +17,13 @@ public interface CountryFeignClient {
     ResponseEntity<CountryDTO> update(@RequestBody CountryDTO countryDTO);
 
     @DeleteMapping("/{id}")
-    ResponseEntity deleteById(@PathVariable("id") Long id);
+    ResponseEntity deleteById(@PathVariable("id") long id);
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<CountryDTO> save(@RequestBody CountryDTO countryDTO);
 
     @GetMapping("/{id}")
-    ResponseEntity<CountryDTO> getById(@PathVariable("id") Long id);
+    ResponseEntity<CountryDTO> getById(@PathVariable("id") long id);
 
     @GetMapping
     ResponseEntity<List<CountryDTO>> findAll();

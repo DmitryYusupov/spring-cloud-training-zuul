@@ -40,9 +40,7 @@ public class CountryLocalServiceImpl implements CountryLocalService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        if (id != null) {
-            countryRepo.deleteById(id);
-        }
+    public void deleteById(long id) {
+        countryRepo.deleteById(id);
     }
 }

@@ -1,6 +1,8 @@
 package ru.yusdm.cloudtraining.zuul.countryservice.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.yusdm.cloudtraining.zuul.common.dto.CityDTO;
 import ru.yusdm.cloudtraining.zuul.common.dto.CountryDTO;
@@ -12,6 +14,7 @@ import ru.yusdm.cloudtraining.zuul.countryservice.service.CountryLocalService;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.OK;
 import static ru.yusdm.cloudtraining.zuul.common.distributed.ResponseEntityUtils.extractEntityIfOkOrThrewError;
 import static ru.yusdm.cloudtraining.zuul.countryservice.utils.DtoModelConverter.modelToDTO;
 
@@ -38,5 +41,12 @@ public class CountryDistributedServiceImpl implements CountryDistributedService 
             countryDTO.setCities(cities);
         }
         return Optional.ofNullable(countryDTO);
+    }
+
+    @Override
+    public ResponseEntity deleteById(long id) {
+        countryLocalService.deleteById(id);
+        cityFeignClient.deleteByCountryId(id);
+        return new ResponseEntity(OK);
     }
 }
