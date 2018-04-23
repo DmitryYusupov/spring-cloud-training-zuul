@@ -1,5 +1,5 @@
 spring:
   application:
-    name: cities
+    name: cityservice
 server:
   port: 8082

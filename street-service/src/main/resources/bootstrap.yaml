@@ -1,5 +1,5 @@
 spring:
   application:
-    name: streets
+    name: streetservice
 server:
   port: 8083

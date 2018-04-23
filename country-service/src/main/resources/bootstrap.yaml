@@ -1,5 +1,5 @@
 spring:
   application:
-    name: countries
+    name: countryservice
 server:
   port: 8081

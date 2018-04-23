@@ -6,5 +6,5 @@ spring:
   cloud:
     consul:
       discovery:
-        enabled: false
-        register: false
+        enabled: true
+        register: true

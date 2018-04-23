@@ -1,0 +1,24 @@
+server:
+  port: 5555
+#For example, to expose everything over
+#HTTP (if you want to see routes)
+management:
+ endpoints:
+  web:
+   exposure:
+    include: "*"
+#spring
+spring:
+  application:
+    name: zuul-service
+  cloud:
+    consul:
+      discovery:
+        enabled: true
+        register: false
+#zuul routing
+zuul:
+  routes:
+   countryservice: /zuulcountryservice**
+   cityservice: /zuulcityservice/**
+   streetservice: /zuulstreetservice/**
