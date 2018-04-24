@@ -18,9 +18,15 @@ spring:
         register: false
       port: 8500
       host: 127.0.0.1
+
+
 #zuul routing
 zuul:
+  prefix: /api
+  ignored-services: '*'
   routes:
-   countryservice: /zuulcountryservice/**
+   countrystatic_11:
+    path: /countrystatic_22/**
+    url: http://localhost:8081
    cityservice: /zuulcityservice/**
    streetservice: /zuulstreetservice/**

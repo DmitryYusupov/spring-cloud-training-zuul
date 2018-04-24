@@ -20,6 +20,8 @@ spring:
       host: 127.0.0.1
 #zuul routing
 zuul:
+  ignored-services: '*'
+  prefix: /api
   routes:
    countryservice: /zuulcountryservice/**
    cityservice: /zuulcityservice/**

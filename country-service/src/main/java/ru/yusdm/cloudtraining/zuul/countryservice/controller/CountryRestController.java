@@ -66,4 +66,13 @@ public class CountryRestController {
         return new ResponseEntity<>(countries, OK);
     }
 
+    @GetMapping("/longoperation")
+    public ResponseEntity<String> justPing() {
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("Long operation", OK);
+    }
 }

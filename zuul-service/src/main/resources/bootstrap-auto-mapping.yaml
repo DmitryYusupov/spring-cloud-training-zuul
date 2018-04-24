@@ -15,3 +15,5 @@ spring:
       discovery:
         enabled: true
         register: false
+      port: 8500
+      host: 127.0.0.1

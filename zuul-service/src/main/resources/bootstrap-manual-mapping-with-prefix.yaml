@@ -20,6 +20,7 @@ spring:
       host: 127.0.0.1
 #zuul routing
 zuul:
+  prefix: /api
   routes:
    countryservice: /zuulcountryservice/**
    cityservice: /zuulcityservice/**
